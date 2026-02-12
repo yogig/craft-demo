@@ -1,0 +1,8 @@
+baseUrl: $PRIMARY_SITE_URL
+handle: default
+hasUrls: true
+language: en
+name: 'Craft Demo'
+primary: true
+siteGroup: 44a9a077-d4ca-4012-8537-22b99348fddf # Craft Demo
+sortOrder: 1

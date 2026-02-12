@@ -1,0 +1,80 @@
+{% extends "_layout" %}
+
+{% block title %}Order Complete - {{ siteName }}{% endblock %}
+
+{% block content %}
+    {% set number = craft.app.request.getParam('number') %}
+    {% set order = number ? craft.commerce.orders.number(number).one() : null %}
+
+    <div style="max-width: 700px; margin: 60px auto; text-align: center;">
+        <div style="background: #d4edda; border: 2px solid #c3e6cb; border-radius: 12px; padding: 50px 30px; margin-bottom: 40px;">
+            <div style="font-size: 80px; margin-bottom: 20px;">✓</div>
+            <h1 style="color: #27ae60; margin-bottom: 15px; font-size: 32px;">Order Confirmed!</h1>
+            {% if order %}
+                <p style="font-size: 18px; color: #155724; margin-bottom: 10px;">
+                    Order #{{ order.number }}
+                </p>
+            {% endif %}
+            <p style="font-size: 18px; color: #155724;">
+                Thank you for your purchase. Your order has been received and is being processed.
+            </p>
+        </div>
+
+        {% if order %}
+            <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: left; margin-bottom: 30px;">
+                <h2 style="margin-bottom: 20px; font-size: 24px; text-align: center;">Order Details</h2>
+
+                <div style="margin-bottom: 20px;">
+                    {% for item in order.lineItems %}
+                        <div style="display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #eee;">
+                            <div>
+                                <strong>{{ item.description }}</strong>
+                                <br>
+                                <span style="color: #666; font-size: 14px;">Qty: {{ item.qty }} × {{ item.price|currency(order.currency) }}</span>
+                            </div>
+                            <div style="font-weight: bold;">
+                                {{ item.subtotal|currency(order.currency) }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div style="background: #f9f9f9; padding: 20px; border-radius: 8px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>Subtotal:</span>
+                        <span>{{ order.itemSubtotal|currency(order.currency) }}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>Shipping:</span>
+                        <span>{{ order.totalShippingCost|currency(order.currency) }}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 2px solid #ddd;">
+                        <span>Tax:</span>
+                        <span>{{ order.totalTax|currency(order.currency) }}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 20px;">
+                        <strong>Total Paid:</strong>
+                        <strong style="color: #27ae60;">{{ order.totalPrice|currency(order.currency) }}</strong>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p style="color: #666; margin-bottom: 30px;">
+                Your order has been placed successfully!
+            </p>
+        {% endif %}
+
+        <p style="margin-bottom: 30px; color: #666; font-size: 16px;">
+            A confirmation email will be sent to your email address.
+        </p>
+
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <a href="{{ url('shop') }}" class="btn" style="background: #3498db;">Continue Shopping</a>
+            <a href="{{ siteUrl }}" class="btn" style="background: #95a5a6;">Back to Home</a>
+        </div>
+
+        <p style="margin-top: 40px; font-size: 13px; color: #999; padding: 20px; background: #f9f9f9; border-radius: 8px;">
+            💡 <strong>Demo Notice:</strong> This is a test transaction using a dummy payment gateway. No real payment has been processed.
+        </p>
+    </div>
+{% endblock %}

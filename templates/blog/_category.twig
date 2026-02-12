@@ -1,0 +1,59 @@
+{% extends "_layout" %}
+
+{% block title %}{{ category.title }} - Blog - {{ siteName }}{% endblock %}
+
+{% block content %}
+    <h1>{{ category.title }}</h1>
+
+    <p style="font-size: 18px; color: #666; margin: 20px 0 40px;">
+        Browse all posts in this category
+    </p>
+
+    {% set categoryPosts = craft.entries()
+        .section('blog')
+        .relatedTo(category)
+        .orderBy('postDate DESC')
+        .all() %}
+
+    {% if categoryPosts|length %}
+        <div class="blog-grid">
+            {% for entry in categoryPosts %}
+                <div class="blog-card">
+                    {% set featuredImage = entry.featuredImage.one() %}
+                    {% if featuredImage %}
+                        <img src="{{ featuredImage.url }}"
+                             alt="{{ featuredImage.title }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/400x200/3498db/ffffff?text={{ entry.title|url_encode }}"
+                             alt="{{ entry.title }}">
+                    {% endif %}
+
+                    <div class="blog-card-content">
+                        <h2><a href="{{ entry.url }}">{{ entry.title }}</a></h2>
+
+                        {% if entry.summary %}
+                            <p class="summary">{{ entry.summary }}</p>
+                        {% endif %}
+
+                        <div style="display: flex; gap: 15px; margin: 15px 0; font-size: 14px; color: #666;">
+                            <span>📅 {{ entry.postDate|date('M d, Y') }}</span>
+                            {% if entry.readingTime %}
+                                <span>⏱️ {{ entry.readingTime }} min read</span>
+                            {% endif %}
+                        </div>
+
+                        <a href="{{ entry.url }}" class="btn">Read More →</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p style="color: #666; text-align: center; padding: 40px;">
+            No posts in this category yet.
+        </p>
+    {% endif %}
+
+    <p style="margin-top: 40px;">
+        <a href="{{ url('blog') }}" class="btn">← Back to All Posts</a>
+    </p>
+{% endblock %}

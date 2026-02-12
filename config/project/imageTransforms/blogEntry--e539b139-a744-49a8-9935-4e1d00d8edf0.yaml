@@ -1,0 +1,11 @@
+fill: null
+format: webp
+handle: blogEntry
+height: 250
+interlace: none
+mode: crop
+name: 'Blog Entry'
+position: center-center
+quality: 60
+upscale: true
+width: 500

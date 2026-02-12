@@ -1,0 +1,57 @@
+{% extends "_layout" %}
+
+{% block title %}{{ entry.title }} - Portfolio - {{ siteName }}{% endblock %}
+
+{% block content %}
+    <article>
+        <div class="article-header">
+            <h1>{{ entry.title }}</h1>
+
+            {% if entry.projectUrl %}
+                <p style="margin: 15px 0;">
+                    <a href="{{ entry.projectUrl }}" target="_blank" style="color: #9b59b6; text-decoration: none; font-size: 16px;">
+                        🔗 Visit Project Website →
+                    </a>
+                </p>
+            {% endif %}
+        </div>
+
+        {% set projectImages = entry.projectImages.all() %}
+        {% if projectImages|length %}
+            <div style="margin: 30px 0;">
+                {% if projectImages|length == 1 %}
+                    <img src="{{ projectImages[0].url }}" alt="{{ projectImages[0].title }}" style="width: 100%; border-radius: 8px;">
+                {% else %}
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                        {% for image in projectImages %}
+                            <img src="{{ image.url }}" alt="{{ image.title }}" style="width: 100%; border-radius: 8px;">
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if entry.projectDescription %}
+            <div style="font-size: 18px; line-height: 1.8; color: #555; margin: 30px 0;">
+                {{ entry.projectDescription|nl2br }}
+            </div>
+        {% endif %}
+
+        {% if entry.technologiesUsed|length %}
+            <div style="margin: 40px 0; padding: 20px; background: #f9f9f9; border-radius: 8px;">
+                <h3 style="margin-bottom: 15px; font-size: 18px;">Technologies Used</h3>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    {% for tech in entry.technologiesUsed.all() %}
+                        <span style="background: #9b59b6; color: white; padding: 8px 16px; border-radius: 4px; font-size: 14px;">
+                            {{ tech.title }}
+                        </span>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <p style="margin-top: 40px;">
+            <a href="{{ url('portfolio') }}" class="btn">← Back to Portfolio</a>
+        </p>
+    </article>
+{% endblock %}

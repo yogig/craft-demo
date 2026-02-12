@@ -1,0 +1,59 @@
+{% extends "_layout" %}
+
+{% block title %}Shop - {{ siteName }}{% endblock %}
+
+{% block content %}
+    <h1 style="margin-bottom: 40px;">Shop</h1>
+
+    <p style="font-size: 18px; color: #666; margin-bottom: 40px;">
+        Browse our digital products and services
+    </p>
+
+    {% set products = craft.products()
+        .type('digitalProducts')
+        .status('live')
+        .all() %}
+
+    {% if products|length %}
+        <div class="blog-grid">
+            {% for product in products %}
+                {% set variant = product.defaultVariant %}
+
+                <div class="blog-card">
+                    <img src="https://via.placeholder.com/400x200/27ae60/ffffff?text={{ product.title|url_encode }}"
+                         alt="{{ product.title }}">
+
+                    <div class="blog-card-content">
+                        <h2><a href="{{ product.url }}">{{ product.title }}</a></h2>
+
+                        {% if product.productDescription %}
+                            <p class="summary">{{ product.productDescription|slice(0, 120) }}...</p>
+                        {% endif %}
+
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0;">
+                            <span style="font-size: 24px; font-weight: bold; color: #27ae60;">
+                                {{ variant.price|currency(cart.currency) }}
+                            </span>
+
+                            {% if variant.hasUnlimitedStock or variant.stock > 0 %}
+                                <span style="background: #27ae60; color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold;">
+                                    ✓ In Stock
+                                </span>
+                            {% else %}
+                                <span style="background: #e74c3c; color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold;">
+                                    Out of Stock
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <a href="{{ product.url }}" class="btn">View Details →</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p style="color: #666; text-align: center; padding: 40px; background: #f9f9f9; border-radius: 8px;">
+            No products available yet.
+        </p>
+    {% endif %}
+{% endblock %}

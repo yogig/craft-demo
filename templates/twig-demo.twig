@@ -1,0 +1,184 @@
+{% extends "_layout" %}
+
+{% block title %}Twig Demo - {{ siteName }}{% endblock %}
+
+{% block content %}
+    <h1>Twig Filters & Functions Demo</h1>
+
+    <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h2>1. String Filters</h2>
+
+        {% set sampleText = "craft cms is awesome" %}
+
+        <p><strong>Original:</strong> {{ sampleText }}</p>
+        <p><strong>Upper:</strong> {{ sampleText|upper }}</p>
+        <p><strong>Title:</strong> {{ sampleText|title }}</p>
+        <p><strong>Capitalize:</strong> {{ sampleText|capitalize }}</p>
+        <p><strong>Replace:</strong> {{ sampleText|replace({'cms': 'CMS'}) }}</p>
+        <p><strong>Length:</strong> {{ sampleText|length }} characters</p>
+        <p><strong>Slice (first 5):</strong> {{ sampleText|slice(0, 5) }}</p>
+        <p><strong>Split into array:</strong> {{ sampleText|split(' ')|join(', ') }}</p>
+    </div>
+
+    <div style="background: #ecf0f1; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h2>2. Date Filters</h2>
+
+        {% set now = now %}
+
+        <p><strong>Full date:</strong> {{ now|date('F d, Y') }}</p>
+        <p><strong>Short date:</strong> {{ now|date('m/d/Y') }}</p>
+        <p><strong>With time:</strong> {{ now|date('F d, Y - g:i A') }}</p>
+        <p><strong>Day of week:</strong> {{ now|date('l') }}</p>
+        <p><strong>Relative:</strong> {{ now|date('U') - 86400 }} (timestamp from yesterday)</p>
+    </div>
+
+    <div style="background: #d5e8f7; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h2>3. Number Filters</h2>
+
+        {% set price = 1234.5678 %}
+
+        <p><strong>Original:</strong> {{ price }}</p>
+        <p><strong>Rounded:</strong> {{ price|round }}</p>
+        <p><strong>Round up:</strong> {{ price|round(0, 'ceil') }}</p>
+        <p><strong>Round down:</strong> {{ price|round(0, 'floor') }}</p>
+        <p><strong>Number format:</strong> {{ price|number_format(2) }}</p>
+        <p><strong>Currency:</strong> ${{ price|number_format(2) }}</p>
+    </div>
+
+    <div style="background: #fef5e7; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h2>4. Array Filters</h2>
+
+        {% set fruits = ['apple', 'banana', 'cherry', 'date', 'elderberry'] %}
+
+        <p><strong>Original array:</strong> {{ fruits|join(', ') }}</p>
+        <p><strong>First item:</strong> {{ fruits|first }}</p>
+        <p><strong>Last item:</strong> {{ fruits|last }}</p>
+        <p><strong>Sorted:</strong> {{ fruits|sort|join(', ') }}</p>
+        <p><strong>Reversed:</strong> {{ fruits|reverse|join(', ') }}</p>
+        <p><strong>Slice (first 3):</strong> {{ fruits|slice(0, 3)|join(', ') }}</p>
+        <p><strong>Length:</strong> {{ fruits|length }} items</p>
+    </div>
+
+    <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h2>5. HTML & Content Filters</h2>
+
+        {% set htmlContent = "<p>This is <strong>bold</strong> and <em>italic</em> text.</p>" %}
+
+        <p><strong>With HTML:</strong> {{ htmlContent|raw }}</p>
+        <p><strong>Strip tags:</strong> {{ htmlContent|striptags }}</p>
+        <p><strong>Escape HTML:</strong> {{ htmlContent }}</p>
+        <p><strong>Truncate:</strong> {{ htmlContent|striptags|slice(0, 20) }}...</p>
+    </div>
+
+    <div style="background: #fce4ec; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h2>6. URL & File Filters</h2>
+
+        {% set text = "Hello World! How are you?" %}
+
+        <p><strong>Original:</strong> {{ text }}</p>
+        <p><strong>URL encode:</strong> {{ text|url_encode }}</p>
+        <p><strong>Slug (kebab-case):</strong> {{ text|kebab }}</p>
+        <p><strong>Camel case:</strong> {{ text|camel }}</p>
+        <p><strong>Snake case:</strong> {{ text|snake }}</p>
+    </div>
+
+    <div style="background: #f3e5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h2>7. Conditional Filters</h2>
+
+        {% set value = null %}
+        {% set emptyString = "" %}
+        {% set number = 0 %}
+
+        <p><strong>Default filter (null):</strong> {{ value|default('No value') }}</p>
+        <p><strong>Default filter (empty):</strong> {{ emptyString|default('Empty string') }}</p>
+        <p><strong>Default filter (zero):</strong> {{ number|default('Zero') }}</p>
+    </div>
+
+    <div style="background: #fff3e0; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h2>8. Craft-Specific Filters</h2>
+
+        {% set blogPosts = craft.entries().section('blog').limit(3).all() %}
+
+        <p><strong>Entry count:</strong> {{ blogPosts|length }} posts</p>
+
+        {% if blogPosts|length %}
+            <ul>
+                {% for post in blogPosts %}
+                    <li>
+                        <strong>{{ post.title }}</strong> -
+                        {{ post.postDate|date('M d, Y') }}
+                        {% if post.summary %}
+                            - {{ post.summary|slice(0, 50) }}...
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div style="background: #e0f2f1; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h2>9. Combining Filters (Chaining)</h2>
+
+        {% set longText = "  Craft CMS is a flexible, user-friendly content management system for developers.  " %}
+
+        <p><strong>Original:</strong> "{{ longText }}"</p>
+        <p><strong>Trim + Title + Slice:</strong> {{ longText|trim|title|slice(0, 30) }}...</p>
+        <p><strong>Upper + Replace:</strong> {{ longText|trim|upper|replace({'CMS': 'Content Management System'}) }}</p>
+    </div>
+
+    <div style="background: #fff9c4; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h2>10. Control Structures</h2>
+
+        <h3>For Loop</h3>
+        {% for i in 1..5 %}
+            <span style="background: #3498db; color: white; padding: 5px 10px; margin: 5px; display: inline-block; border-radius: 4px;">
+                Item {{ i }}
+            </span>
+        {% endfor %}
+
+        <h3 style="margin-top: 20px;">Loop with Index</h3>
+        {% set colors = ['red', 'blue', 'green', 'yellow'] %}
+        <ul>
+            {% for color in colors %}
+                <li>
+                    {{ loop.index }}. {{ color|title }}
+                    {% if loop.first %}<em>(first)</em>{% endif %}
+                    {% if loop.last %}<em>(last)</em>{% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <h3 style="margin-top: 20px;">If/Else</h3>
+        {% set score = 85 %}
+        <p>
+            Score: {{ score }} -
+            {% if score >= 90 %}
+                Grade: A (Excellent!)
+            {% elseif score >= 80 %}
+                Grade: B (Good job!)
+            {% elseif score >= 70 %}
+                Grade: C (Pass)
+            {% else %}
+                Grade: F (Needs improvement)
+            {% endif %}
+        </p>
+    </div>
+
+    <div style="background: #ffe0b2; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h2>11. Math Operations</h2>
+
+        {% set a = 10 %}
+        {% set b = 3 %}
+
+        <p><strong>Addition:</strong> {{ a }} + {{ b }} = {{ a + b }}</p>
+        <p><strong>Subtraction:</strong> {{ a }} - {{ b }} = {{ a - b }}</p>
+        <p><strong>Multiplication:</strong> {{ a }} * {{ b }} = {{ a * b }}</p>
+        <p><strong>Division:</strong> {{ a }} / {{ b }} = {{ (a / b)|round(2) }}</p>
+        <p><strong>Modulo:</strong> {{ a }} % {{ b }} = {{ a % b }}</p>
+        <p><strong>Power:</strong> {{ a }} ** 2 = {{ a ** 2 }}</p>
+    </div>
+
+    <p style="margin-top: 40px;">
+        <a href="{{ url('blog') }}" class="btn">← Back to Blog</a>
+    </p>
+{% endblock %}

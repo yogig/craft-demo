@@ -1,0 +1,6 @@
+siteUid: null
+sortOrder: 1
+template: shop/index
+uriParts:
+  - shop
+uriPattern: shop

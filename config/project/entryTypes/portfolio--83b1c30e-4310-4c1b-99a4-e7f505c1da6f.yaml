@@ -1,0 +1,111 @@
+color: null
+description: null
+fieldLayouts:
+  8800503f-4de8-44bf-b9d3-6d67f3c3d463:
+    cardThumbAlignment: end
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            dateAdded: '2026-01-15T14:44:49+00:00'
+            disabled: false
+            elementCondition: null
+            id: null
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            required: true
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 7f32ff36-7e4a-45b3-be3e-c9700e33b640
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-01-15T14:48:50+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 62e7804c-1235-42c8-89fd-8e626644bb04 # Project Images
+            handle: null
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: a0370edd-197e-4760-af51-2a9ebb39c514
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-01-15T14:48:50+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 358899c5-3ac8-4059-adfe-fc70eb3586f4 # Project Description
+            handle: null
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: da212ea1-f476-4f3e-af5c-a448b2c13735
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-01-15T14:48:50+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: e2deca1a-3736-470c-9de3-1c555205f4a8 # Project URL
+            handle: null
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 292debec-eec6-4a92-933c-70c8cee75156
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-01-15T14:48:50+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 3b38815c-3038-45e5-9a11-031573915bed # Technologies Used
+            handle: null
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 60cf6202-a0f9-4d1c-bbd8-44766aeabafd
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 2bc995bb-981f-4f55-b251-85cf33aec64e
+        userCondition: null
+handle: portfolio
+hasTitleField: true
+icon: null
+name: Portfolio
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

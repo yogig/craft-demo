@@ -1,0 +1,63 @@
+{% extends "_layout" %}
+
+{% block content %}
+    <h1>Welcome to {{ siteName }}</h1>
+
+    <p style="font-size: 20px; color: #666; margin: 30px 0;">
+        This is your Craft CMS demo site. Explore the blog below!
+    </p>
+
+    <h2 style="margin: 40px 0 20px;">Latest Blog Posts</h2>
+
+    {% set recentPosts = craft.entries()
+        .section('blog')
+        .limit(3)
+        .orderBy('postDate DESC')
+        .all() %}
+
+    {% if recentPosts|length %}
+        <div class="blog-grid">
+            {% for entry in recentPosts %}
+                <div class="blog-card">
+                    {% set featuredImage = entry.featuredImage.one() %}
+                    {% if featuredImage %}
+                        <img src="{{ featuredImage.url }}"
+                             alt="{{ featuredImage.title }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/400x200/3498db/ffffff?text={{ entry.title|url_encode }}"
+                             alt="{{ entry.title }}">
+                    {% endif %}
+
+                    <div class="blog-card-content">
+                        {% if entry.featuredPost %}
+                            <span style="background: #e74c3c; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 10px;">⭐ FEATURED</span>
+                        {% endif %}
+
+                        <h2><a href="{{ entry.url }}">{{ entry.title }}</a></h2>
+
+                        {% if entry.summary %}
+                            <p class="summary">{{ entry.summary }}</p>
+                        {% endif %}
+
+                        <div style="display: flex; gap: 15px; margin: 15px 0; font-size: 14px; color: #666;">
+                            <span>📅 {{ entry.postDate|date('M d, Y') }}</span>
+                            {% if entry.readingTime %}
+                                <span>⏱️ {{ entry.readingTime }} min read</span>
+                            {% endif %}
+                        </div>
+
+                        <a href="{{ entry.url }}" class="btn">Read More →</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <p style="margin-top: 30px; text-align: center;">
+            <a href="{{ url('blog') }}" class="btn">View All Posts →</a>
+        </p>
+    {% else %}
+        <p style="color: #666; text-align: center; padding: 40px; background: #f9f9f9; border-radius: 8px;">
+            No blog posts yet. <a href="/admin/entries/blog/new" style="color: #3498db;">Create your first post!</a>
+        </p>
+    {% endif %}
+{% endblock %}

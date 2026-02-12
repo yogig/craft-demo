@@ -1,0 +1,49 @@
+defaultPlacement: end
+fieldLayouts:
+  a62595f7-b12b-4bed-bb0e-7ca89e4ba00f:
+    cardThumbAlignment: end
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            dateAdded: '2026-01-15T15:10:23+00:00'
+            disabled: false
+            elementCondition: null
+            id: null
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\TitleField
+            uid: 9003c51f-9b50-446e-823f-61b5900489c1
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: a47b0abf-1c94-42cd-bc24-7e90ca4c766c
+        userCondition: null
+handle: productCategories
+name: 'Product Categories'
+siteSettings:
+  e0781df1-416c-47c6-bd9b-98bad82f27e9: # Craft Demo
+    hasUrls: true
+    template: products/_category
+    uriFormat: 'products/category/{slug}'
+structure:
+  maxLevels: null
+  uid: 4bbb33bf-3ef6-4aa4-84ce-093a4a6df857

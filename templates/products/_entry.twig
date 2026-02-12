@@ -1,0 +1,103 @@
+{% extends "_layout" %}
+
+{% block title %}{{ entry.title }} - Products - {{ siteName }}{% endblock %}
+
+{% block content %}
+    <article>
+        <div class="article-header">
+            <h1>{{ entry.title }}</h1>
+
+            <div style="display: flex; gap: 20px; align-items: center; margin: 20px 0; flex-wrap: wrap;">
+                {% if entry.price %}
+                    <span style="font-size: 32px; font-weight: bold; color: #27ae60;">
+                        ${{ entry.price|number_format(2) }}
+                    </span>
+                {% endif %}
+
+                {% if entry.stockStatus %}
+                    {% set statusColors = {
+                        'inStock': '#27ae60',
+                        'outOfStock': '#e74c3c',
+                        'preOrder': '#f39c12'
+                    } %}
+                    {% set statusLabels = {
+                        'inStock': '✓ In Stock',
+                        'outOfStock': '✗ Out of Stock',
+                        'preOrder': '⏰ Pre-Order'
+                    } %}
+                    <span style="background: {{ statusColors[entry.stockStatus.value] }}; color: white; padding: 8px 16px; border-radius: 4px; font-size: 16px; font-weight: bold;">
+                        {{ statusLabels[entry.stockStatus.value] }}
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+
+        {% set productImage = entry.productImage.one() %}
+        {% if productImage %}
+            <div class="article-image">
+                <img src="{{ productImage.url }}"
+                     alt="{{ productImage.title }}">
+            </div>
+        {% endif %}
+
+        {% if entry.productDescription %}
+            <div style="font-size: 18px; line-height: 1.8; color: #555; margin: 30px 0;">
+                {{ entry.productDescription|nl2br }}
+            </div>
+        {% endif %}
+
+        {% if entry.productFeatures|length %}
+            <div style="margin: 40px 0;">
+                <h2 style="margin-bottom: 20px; font-size: 24px;">Features</h2>
+                <div style="display: grid; gap: 15px;">
+                    {% for row in entry.productFeatures %}
+                        <div style="padding: 15px; background: #f9f9f9; border-left: 4px solid #27ae60; border-radius: 4px;">
+                            <h3 style="font-size: 16px; margin-bottom: 5px; color: #27ae60;">
+                                ✓ {{ row.feature }}
+                            </h3>
+                            <p style="color: #666; margin: 0;">
+                                {{ row.description }}
+                            </p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if entry.productCategories|length %}
+            <div style="margin: 40px 0;">
+                <h3 style="margin-bottom: 15px; font-size: 18px;">Categories</h3>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    {% for category in entry.productCategories.all() %}
+                        <a href="{{ category.url }}" style="background: #2c3e50; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-size: 14px;">
+                            {{ category.title }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <div style="margin: 40px 0; padding: 20px; background: #ecf0f1; border-radius: 8px; text-align: center;">
+            {% if entry.stockStatus.value == 'inStock' %}
+                <button style="background: #27ae60; color: white; padding: 15px 40px; border: none; border-radius: 4px; font-size: 18px; font-weight: bold; cursor: pointer;">
+                    Add to Cart
+                </button>
+            {% elseif entry.stockStatus.value == 'preOrder' %}
+                <button style="background: #f39c12; color: white; padding: 15px 40px; border: none; border-radius: 4px; font-size: 18px; font-weight: bold; cursor: pointer;">
+                    Pre-Order Now
+                </button>
+            {% else %}
+                <button style="background: #95a5a6; color: white; padding: 15px 40px; border: none; border-radius: 4px; font-size: 18px; font-weight: bold; cursor: not-allowed;" disabled>
+                    Out of Stock
+                </button>
+            {% endif %}
+            <p style="margin-top: 10px; color: #666; font-size: 14px;">
+                * This is a demo. Buttons are not functional.
+            </p>
+        </div>
+
+        <p style="margin-top: 40px;">
+            <a href="{{ url('products') }}" class="btn">← Back to Products</a>
+        </p>
+    </article>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "_layout" %}
+
+{% block title %}{{ entry.title }} - {{ siteName }}{% endblock %}
+
+{% block content %}
+    <article>
+        <div class="article-header">
+            {% if entry.featuredPost %}
+                <span style="background: #e74c3c; color: white; padding: 6px 12px; border-radius: 4px; font-size: 14px; font-weight: bold; display: inline-block; margin-bottom: 15px;">⭐ FEATURED POST</span>
+            {% endif %}
+
+            <h1>{{ entry.title }}</h1>
+
+            <div class="article-meta" style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <span>📅 {{ entry.postDate|date('F d, Y') }}</span>
+                {% if entry.readingTime %}
+                    <span>⏱️ {{ entry.readingTime }} minute read</span>
+                {% endif %}
+            </div>
+        </div>
+
+        {% set featuredImage = entry.featuredImage.one() %}
+        {% if featuredImage %}
+            <div class="article-image">
+                <img src="{{ featuredImage.url }}"
+                     alt="{{ featuredImage.title }}">
+            </div>
+        {% endif %}
+
+        {% if entry.summary %}
+            <p style="font-size: 20px; color: #666; font-style: italic; margin-bottom: 30px;">
+                {{ entry.summary }}
+            </p>
+        {% endif %}
+
+        <div class="article-content">
+            {{ entry.body|nl2br }}
+        </div>
+
+        {% if entry.tags|length %}
+            <div style="margin: 40px 0; padding: 20px; background: #f9f9f9; border-radius: 8px;">
+                <h3 style="margin-bottom: 15px; font-size: 18px;">Tags</h3>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    {% for tag in entry.tags.all() %}
+                        <span style="background: #3498db; color: white; padding: 6px 12px; border-radius: 4px; font-size: 14px;">
+                            #{{ tag.title }}
+                        </span>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if entry.categories|length %}
+            <div style="margin: 20px 0;">
+                <h3 style="margin-bottom: 15px; font-size: 18px;">Categories</h3>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    {% for category in entry.categories.all() %}
+                        <a href="{{ category.url }}" style="background: #2c3e50; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-size: 14px;">
+                            {{ category.title }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if entry.authorBio %}
+            <div style="margin: 40px 0; padding: 20px; background: #ecf0f1; border-left: 4px solid #3498db; border-radius: 4px;">
+                <h3 style="margin-bottom: 10px; font-size: 16px;">About the Author</h3>
+                <p style="color: #555; line-height: 1.6;">{{ entry.authorBio }}</p>
+            </div>
+        {% endif %}
+
+        <p style="margin-top: 40px;">
+            <a href="{{ url('blog') }}" class="btn">← Back to Blog</a>
+        </p>
+    </article>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends "_layout" %}
+
+{% block title %}Shopping Cart - {{ siteName }}{% endblock %}
+
+{% block content %}
+    <h1 style="margin-bottom: 40px;">Shopping Cart</h1>
+
+    {% set cart = craft.commerce.carts.cart %}
+
+    {% if cart.lineItems|length %}
+        <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 30px;">
+            {% for item in cart.lineItems %}
+                <div style="display: grid; grid-template-columns: 100px 1fr auto; gap: 20px; padding: 20px; margin-bottom: 20px; {% if not loop.last %}border-bottom: 1px solid #eee;{% endif %}">
+                    <div>
+                        <img src="https://via.placeholder.com/100x100/27ae60/ffffff?text={{ item.description|slice(0,1) }}"
+                             alt="{{ item.description }}"
+                             style="width: 100%; border-radius: 4px;">
+                    </div>
+
+                    <div>
+                        <h3 style="margin: 0 0 10px 0; font-size: 18px;">{{ item.description }}</h3>
+                        <p style="color: #666; margin: 5px 0; font-size: 14px;">SKU: {{ item.sku }}</p>
+                        <p style="font-size: 16px; font-weight: bold; color: #27ae60; margin: 10px 0;">
+                            {{ item.price|currency(cart.currency) }} each
+                        </p>
+                        <p style="color: #666; font-size: 14px;">
+                            Subtotal: {{ item.subtotal|currency(cart.currency) }}
+                        </p>
+                    </div>
+
+                    <div style="text-align: right; display: flex; flex-direction: column; gap: 10px;">
+                        <form method="post">
+                            {{ csrfInput() }}
+                            {{ actionInput('commerce/cart/update-cart') }}
+                            {{ redirectInput('shop/cart') }}
+
+                            <input type="hidden" name="lineItems[{{ item.id }}][id]" value="{{ item.id }}">
+
+                            <div style="display: flex; gap: 5px; align-items: center; justify-content: flex-end;">
+                                <label style="font-size: 14px; color: #666;">Qty:</label>
+                                <input type="number"
+                                       name="lineItems[{{ item.id }}][qty]"
+                                       value="{{ item.qty }}"
+                                       min="0"
+                                       style="width: 60px; padding: 5px; border: 1px solid #ddd; border-radius: 4px; text-align: center;">
+                                <button type="submit"
+                                        style="padding: 5px 12px; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px;">
+                                    Update
+                                </button>
+                            </div>
+                        </form>
+
+                        <form method="post">
+                            {{ csrfInput() }}
+                            {{ actionInput('commerce/cart/update-cart') }}
+                            {{ redirectInput('shop/cart') }}
+
+                            <input type="hidden" name="lineItems[{{ item.id }}][id]" value="{{ item.id }}">
+                            <input type="hidden" name="lineItems[{{ item.id }}][qty]" value="0">
+                            <input type="hidden" name="lineItems[{{ item.id }}][remove]" value="1">
+
+                            <button type="submit"
+                                    style="padding: 8px 15px; background: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer; width: 100%;">
+                                Remove
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 400px; gap: 30px;">
+            <div>
+                <a href="{{ url('shop') }}" class="btn" style="background: #95a5a6;">← Continue Shopping</a>
+            </div>
+
+            <div style="background: #f9f9f9; padding: 30px; border-radius: 8px;">
+                <h2 style="margin-bottom: 20px; font-size: 22px;">Cart Summary</h2>
+
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px;">
+                    <span>Subtotal:</span>
+                    <span style="font-weight: bold;">{{ cart.itemSubtotal|currency(cart.currency) }}</span>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px;">
+                    <span>Shipping:</span>
+                    <span style="font-weight: bold; color: #27ae60;">
+                        {% if cart.totalShippingCost == 0 %}
+                            FREE
+                        {% else %}
+                            {{ cart.totalShippingCost|currency(cart.currency) }}
+                        {% endif %}
+                    </span>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px solid #ddd;">
+                    <span>Tax:</span>
+                    <span style="font-weight: bold;">{{ cart.totalTax|currency(cart.currency) }}</span>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+                    <strong style="font-size: 20px;">Total:</strong>
+                    <strong style="font-size: 28px; color: #27ae60;">{{ cart.totalPrice|currency(cart.currency) }}</strong>
+                </div>
+
+                <a href="{{ url('shop/checkout') }}"
+                   class="btn"
+                   style="width: 100%; text-align: center; display: block; background: #27ae60; font-size: 18px; padding: 15px;">
+                    Proceed to Checkout →
+                </a>
+            </div>
+        </div>
+    {% else %}
+        <div style="text-align: center; padding: 80px 20px; background: #f9f9f9; border-radius: 8px;">
+            <div style="font-size: 64px; margin-bottom: 20px;">🛒</div>
+            <h2 style="color: #999; margin-bottom: 20px;">Your cart is empty</h2>
+            <p style="margin-bottom: 30px; color: #666;">Add some products to get started!</p>
+            <a href="{{ url('shop') }}" class="btn" style="background: #3498db;">Browse Products →</a>
+        </div>
+    {% endif %}
+{% endblock %}

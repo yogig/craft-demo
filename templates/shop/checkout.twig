@@ -1,0 +1,185 @@
+{% extends "_layout" %}
+
+{% block title %}Checkout - {{ siteName }}{% endblock %}
+
+{% block content %}
+    {% set cart = craft.commerce.carts.cart %}
+
+    {% if not cart.lineItems|length %}
+        {% redirect 'shop' %}
+    {% endif %}
+
+    <h1 style="margin-bottom: 40px;">Checkout</h1>
+
+    <form method="post" id="payment-form">
+        {{ csrfInput() }}
+        {{ actionInput('commerce/payments/pay') }}
+        {{ redirectInput('shop/order-complete') }}
+
+        {# 1. ADD ORDER NUMBER #}
+        <input type="hidden" name="orderNumber" value="{{ cart.number }}">
+
+        {# ADD THIS LINE: Bypasses shipping validation for local testing #}
+        <input type="hidden" name="shippingAddressSameAsBilling" value="1">
+
+        {% set gateway = craft.commerce.gateways.allFrontEndGateways|first %}
+        {% if gateway %}
+            <input type="hidden" name="gatewayId" value="{{ gateway.id }}">
+        {% endif %}
+
+        {% set gateway = craft.commerce.gateways.allFrontEndGateways|first %}
+        {% if gateway %}
+            <input type="hidden" name="gatewayId" value="{{ gateway.id }}">
+        {% endif %}
+
+        <div style="display: grid; grid-template-columns: 1fr 400px; gap: 40px;">
+            <!-- Checkout Form -->
+            <div>
+                <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px;">
+                    <h2 style="margin-bottom: 20px;">Billing Information</h2>
+
+                    <div style="display: grid; gap: 20px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div>
+                                <label style="display: block; margin-bottom: 5px; font-weight: bold;">First Name *</label>
+                                <input type="text" name="billingAddress[firstName]" required
+                                       value="Test"
+                                       style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Last Name *</label>
+                                <input type="text" name="billingAddress[lastName]" required
+                                       value="User"
+                                       style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Email *</label>
+                            <input type="email" name="email" required
+                                   value="test@example.com"
+                                   style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                        </div>
+
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Address Line 1 *</label>
+                            <input type="text" name="billingAddress[addressLine1]" required
+                                   value="123 Test Street"
+                                   style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                        </div>
+
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Address Line 2</label>
+                            <input type="text" name="billingAddress[addressLine2]"
+                                   style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div>
+                                <label style="display: block; margin-bottom: 5px; font-weight: bold;">City *</label>
+                                <input type="text" name="billingAddress[locality]" required
+                                       value="Test City"
+                                       style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Zip/Postal Code *</label>
+                                <input type="text" name="billingAddress[postalCode]" required
+                                       value="12345"
+                                       style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Country *</label>
+                            <select name="billingAddress[countryCode]" required
+                                    style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                                <option value="">Select Country</option>
+                                <option value="US" selected>United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="DE">Germany</option>
+                                <option value="FR">France</option>
+                                <option value="AU">Australia</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <h2 style="margin-bottom: 20px;">Payment Information</h2>
+
+                    <div style="background: #fff3cd; border: 1px solid #ffc107; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+                        <p style="margin: 0; color: #856404;">
+                            <strong>Test Mode:</strong> This is a demo payment gateway. Payment will be automatically approved.
+                        </p>
+                    </div>
+
+                    <p style="color: #666;">
+                        Click "Complete Order" below to finish your purchase. No payment details required in test mode.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Order Summary (same as before) -->
+            <div>
+                <div style="background: #f9f9f9; padding: 30px; border-radius: 8px; position: sticky; top: 20px;">
+                    <h2 style="margin-bottom: 20px;">Order Summary</h2>
+
+                    <div style="margin-bottom: 20px;">
+                        {% for item in cart.lineItems %}
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #ddd;">
+                                <div>
+                                    <strong style="display: block;">{{ item.description }}</strong>
+                                    <span style="color: #666; font-size: 14px;">Qty: {{ item.qty }} × {{ item.price|currency(cart.currency) }}</span>
+                                </div>
+                                <div style="font-weight: bold;">
+                                    {{ item.subtotal|currency(cart.currency) }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>Subtotal:</span>
+                        <span>{{ cart.itemSubtotal|currency(cart.currency) }}</span>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>Shipping:</span>
+                        <span style="color: #27ae60;">
+                        {% if cart.totalShippingCost == 0 %}
+                            FREE
+                        {% else %}
+                            {{ cart.totalShippingCost|currency(cart.currency) }}
+                        {% endif %}
+                    </span>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px solid #ddd;">
+                        <span>Tax:</span>
+                        <span>{{ cart.totalTax|currency(cart.currency) }}</span>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+                        <strong style="font-size: 20px;">Total:</strong>
+                        <strong style="font-size: 28px; color: #27ae60;">{{ cart.totalPrice|currency(cart.currency) }}</strong>
+                    </div>
+
+                    <button type="submit"
+                            style="width: 100%; background: #27ae60; color: white; border: none; padding: 15px; border-radius: 4px; font-size: 18px; font-weight: bold; cursor: pointer; margin-bottom: 10px;">
+                        Complete Order
+                    </button>
+
+                    <a href="{{ url('shop/cart') }}"
+                       style="display: block; text-align: center; color: #3498db; text-decoration: none; padding: 10px;">
+                        ← Back to Cart
+                    </a>
+
+                    <p style="margin-top: 20px; font-size: 12px; color: #666; text-align: center;">
+                        🔒 Secure checkout powered by Craft Commerce
+                    </p>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

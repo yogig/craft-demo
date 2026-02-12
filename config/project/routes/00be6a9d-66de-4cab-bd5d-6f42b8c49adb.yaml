@@ -1,0 +1,6 @@
+siteUid: null
+sortOrder: 4
+template: shop/order-complete
+uriParts:
+  - shop/order-complete
+uriPattern: shop/order-complete

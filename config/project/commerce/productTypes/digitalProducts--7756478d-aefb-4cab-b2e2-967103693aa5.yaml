@@ -1,0 +1,346 @@
+defaultPlacement: end
+descriptionFormat: '{product.title}'
+enableVersioning: false
+handle: digitalProducts
+hasDimensions: false
+hasProductTitleField: true
+hasVariantTitleField: true
+isStructure: false
+maxLevels: null
+maxVariants: null
+name: 'Digital Products'
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Primary product page'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
+productFieldLayouts:
+  b1d4f9a9-dc6b-4ec1-af63-1b43d0615cbc:
+    cardThumbAlignment: end
+    cardView:
+      - defaultSku
+      - defaultPrice
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            dateAdded: '2026-01-19T13:18:27+00:00'
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\commerce\fieldlayoutelements\ProductTitleField
+            uid: 47b8a86d-37ea-4fdd-82e3-6a20511ada03
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: variants
+            dateAdded: '2026-01-19T13:18:27+00:00'
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: null
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: false
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\VariantsField
+            uid: 629d52ef-4c11-483e-a7fa-7ef1d45eeb76
+            userCondition: null
+            warning: null
+          -
+            dateAdded: '2026-01-19T13:25:01+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: d07c23eb-5b59-4cb3-a645-194232452efa # Product Description
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 95a37fc7-e4ff-4765-950f-9606f963c18f
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 65b4de0c-a978-4ddd-a91f-82cf3b2050da
+        userCondition: null
+productTitleFormat: ''
+productTitleTranslationKeyFormat: null
+productTitleTranslationMethod: site
+propagationMethod: all
+showSlugField: true
+siteSettings:
+  e0781df1-416c-47c6-bd9b-98bad82f27e9: # Craft Demo
+    enabledByDefault: true
+    hasUrls: true
+    template: shop/_product
+    uriFormat: 'shop/{slug}'
+skuFormat: ''
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+variantFieldLayouts:
+  bea045e9-c1c2-469e-a1f5-a2b78ce8ec34:
+    cardThumbAlignment: end
+    cardView:
+      - sku
+      - priceView
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            dateAdded: '2026-01-19T13:18:27+00:00'
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\commerce\fieldlayoutelements\VariantTitleField
+            uid: de12b00d-9525-4a8b-adbb-2fe0459f4f3a
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: sku
+            dateAdded: '2026-01-19T13:18:27+00:00'
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: null
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: true
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\PurchasableSkuField
+            uid: 4b0cf93f-8f76-4c13-8ee5-2fdb2466482f
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: price
+            dateAdded: '2026-01-19T13:18:27+00:00'
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: true
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\PurchasablePriceField
+            uid: 3f8d13e8-84fe-49d0-8a98-278c97e7dfcc
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: stock
+            dateAdded: '2026-01-19T13:18:27+00:00'
+            defaultAllowOutOfStockPurchases: false
+            defaultInventoryTracked: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: null
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: false
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\PurchasableStockField
+            uid: 0c961595-a7f8-4dbc-9d32-bd5368a7d200
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: availableForPurchase
+            dateAdded: '2026-01-19T13:18:27+00:00'
+            defaultAvailableForPurchase: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: null
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: false
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\PurchasableAvailableForPurchaseField
+            uid: f7eaa660-581d-4580-b5d5-2e251be2438f
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: allowedQty
+            dateAdded: '2026-01-19T13:18:27+00:00'
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: null
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: false
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\PurchasableAllowedQtyField
+            uid: 0d996177-031d-4dcc-815b-7958f7084a84
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: freeShipping
+            dateAdded: '2026-01-19T13:18:27+00:00'
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: null
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: false
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\PurchasableFreeShippingField
+            uid: af55a568-10e5-4fb8-b5d0-379ebab890eb
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: promotable
+            dateAdded: '2026-01-19T13:18:27+00:00'
+            defaultPromotable: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: null
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: false
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\PurchasablePromotableField
+            uid: 4fc386e8-a437-4c86-b6d1-b70690a4a336
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: dimensions
+            dateAdded: '2026-01-19T13:18:27+00:00'
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: null
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: false
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\PurchasableDimensionsField
+            uid: daf55bb7-4855-4bc3-921a-1fa96cbc7c7c
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: weight
+            dateAdded: '2026-01-19T13:18:27+00:00'
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: null
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: false
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\PurchasableWeightField
+            uid: e23e3719-cbdc-46ec-a20c-87767c98c6b1
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: c80a8d7e-7c8e-4a51-9982-fd88d403bd00
+        userCondition: null
+variantTitleFormat: '{product.title}'
+variantTitleTranslationKeyFormat: null
+variantTitleTranslationMethod: site

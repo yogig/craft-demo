@@ -1,0 +1,6 @@
+siteUid: null
+sortOrder: 3
+template: shop/checkout
+uriParts:
+  - shop/checkout
+uriPattern: shop/checkout

@@ -1,0 +1,186 @@
+color: null
+description: null
+fieldLayouts:
+  6a6db21d-35bd-4197-82e1-3cc75c73466b:
+    cardThumbAlignment: end
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            dateAdded: '2026-01-14T17:09:53+00:00'
+            disabled: false
+            elementCondition: null
+            id: null
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            required: true
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 70726507-801f-4fb0-bb8d-3049ab2ee5b4
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-01-14T17:17:03+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: c1d2505b-0c14-46f0-a6f6-a11e72bd6f22 # Featured Image
+            handle: null
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 8827a0d7-112e-4f7e-9694-5add2c317551
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-01-14T17:17:03+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: f1f371e0-3df9-41b4-bbe6-47ed3285b81a # Summary
+            handle: null
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 52251d94-bfd7-4c4b-9062-b51d9a745020
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-01-14T17:17:03+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 6db90932-349e-4329-8a34-6de310f034f3 # Body
+            handle: null
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: cdb713c4-68f9-4835-8906-8cd0299180d5
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-01-15T13:32:29+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 185a95b0-c94e-4eb6-b232-f16076208efc # Categories
+            handle: null
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 54334b17-4b26-472e-ba62-530f0729cfc6
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-01-15T13:38:53+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 61de7806-458a-40c0-8c90-b6548a08a188 # Reading Time
+            handle: null
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 31dee4a6-424d-4725-9636-36ffe113003c
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-01-15T13:38:53+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: b0b9608d-5da8-497e-b0c7-1951f88ca2b8 # Tags
+            handle: null
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: cf45eb25-f11a-4cf6-acd5-317678ee2281
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-01-15T13:38:53+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: d4ed4d51-bf17-4738-8c75-fc2e8bec5713 # Featured Post
+            handle: null
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 46747044-5c6f-49eb-8c83-453736884ff2
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-01-15T13:38:53+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 10b33b91-20ea-4f59-83a0-d70fb45d30c2 # Author Bio
+            handle: null
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 43466860-0a4e-4d81-be92-aec97535a367
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-01-15T14:13:37+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: fbb80d98-3f5d-4669-87f8-1cd1e9f6ee63 # Accent Color
+            handle: null
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: bb4e90dc-0a41-4078-bff1-e07ce2ce460f
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 180aea29-176e-4290-8024-bc5777cb71ad
+        userCondition: null
+handle: blog
+hasTitleField: true
+icon: null
+name: Blog
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

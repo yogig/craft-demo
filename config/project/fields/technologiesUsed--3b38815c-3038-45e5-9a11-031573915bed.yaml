@@ -1,0 +1,23 @@
+columnSuffix: null
+handle: technologiesUsed
+instructions: null
+name: 'Technologies Used'
+searchable: false
+settings:
+  allowSelfRelations: false
+  branchLimit: null
+  defaultPlacement: end
+  maintainHierarchy: false
+  maxRelations: null
+  minRelations: null
+  selectionLabel: null
+  showCardsInGrid: false
+  showSearchInput: true
+  showSiteMenu: true
+  source: 'taggroup:e9c96497-7d55-4ceb-afa6-a6c5f6282943' # Technologies
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Tags

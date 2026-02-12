@@ -1,0 +1,505 @@
+<style>
+    /* Corporate Finance Revenue Widget - Light Theme */
+    .rv-widget {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        padding: 24px;
+        background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+        border-radius: 12px;
+        color: #1e293b;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    }
+
+    /* Subtle pattern overlay */
+    .rv-widget::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image:
+                linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
+        background-size: 24px 24px;
+        pointer-events: none;
+    }
+
+    /* Header */
+    .rv-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        position: relative;
+        z-index: 1;
+    }
+    .rv-title-section {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .rv-logo {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+    }
+    .rv-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #0f172a;
+    }
+    .rv-subtitle {
+        font-size: 11px;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .rv-info-btn {
+        width: 28px;
+        height: 28px;
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: help;
+        font-size: 12px;
+        font-weight: 700;
+        color: #64748b;
+        transition: all 0.2s ease;
+    }
+    .rv-info-btn:hover {
+        background: #e2e8f0;
+        color: #0ea5e9;
+    }
+
+    /* Tooltip */
+    .rv-tooltip-wrap {
+        position: static;
+        top: 55px;
+        right: 20px;
+        z-index: 9999;
+        display: none;
+    }
+    .rv-info-btn:hover + .rv-tooltip-wrap,
+    .rv-tooltip-wrap:hover {
+        display: block;
+    }
+    .rv-tooltip {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        padding: 18px;
+        border-radius: 12px;
+        width: 320px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    }
+    .rv-tooltip-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #f1f5f9;
+    }
+    .rv-tooltip-item {
+        display: flex;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #f1f5f9;
+        font-size: 11px;
+    }
+    .rv-tooltip-item:last-child {
+        border-bottom: none;
+    }
+    .rv-tooltip-indicator {
+        width: 4px;
+        height: 28px;
+        border-radius: 2px;
+        margin-right: 12px;
+        flex-shrink: 0;
+    }
+    .rv-tooltip-indicator.teal { background: #14b8a6; }
+    .rv-tooltip-indicator.blue { background: #0ea5e9; }
+    .rv-tooltip-indicator.amber { background: #f59e0b; }
+    .rv-tooltip-indicator.emerald { background: #10b981; }
+    .rv-tooltip-content {
+        flex: 1;
+    }
+    .rv-tooltip-label {
+        color: #0f172a;
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+    .rv-tooltip-desc {
+        color: #64748b;
+        font-size: 10px;
+    }
+    .rv-tooltip-code {
+        color: #0ea5e9;
+        font-family: 'SF Mono', Monaco, monospace;
+        font-size: 9px;
+        background: #f0f9ff;
+        padding: 4px 8px;
+        border-radius: 4px;
+        border: 1px solid #e0f2fe;
+    }
+
+    /* Main Revenue Section */
+    .rv-main {
+        text-align: center;
+        padding: 24px 0 28px;
+        position: relative;
+        z-index: 1;
+        background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+        border-radius: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #e2e8f0;
+    }
+    .rv-main-label {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #64748b;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+    .rv-main-value {
+        font-size: 38px;
+        font-weight: 800;
+        color: #0f172a;
+        letter-spacing: -1px;
+        line-height: 1;
+    }
+    .rv-main-value .currency {
+        font-size: 22px;
+        color: #64748b;
+        font-weight: 600;
+        margin-right: 4px;
+    }
+    .rv-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 12px;
+        font-size: 11px;
+        color: #0ea5e9;
+        background: #f0f9ff;
+        padding: 6px 12px;
+        border-radius: 20px;
+        border: 1px solid #e0f2fe;
+        font-weight: 600;
+    }
+    .rv-badge-icon {
+        font-size: 12px;
+    }
+
+    /* Metrics Grid */
+    .rv-metrics {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 12px;
+        position: relative;
+        z-index: 1;
+    }
+    .rv-metric {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        padding: 16px;
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.2s ease;
+    }
+    .rv-metric:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        transform: translateY(-1px);
+    }
+    .rv-metric::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+    }
+    .rv-metric.paid::before { background: #14b8a6; }
+    .rv-metric.refunded::before { background: #f59e0b; }
+    .rv-metric.orders::before { background: #0ea5e9; }
+    .rv-metric.paid-orders::before { background: #10b981; }
+
+    .rv-metric-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .rv-metric-label {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #64748b;
+        font-weight: 600;
+    }
+    .rv-metric-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+    }
+    .rv-metric.paid .rv-metric-icon { background: #f0fdfa; }
+    .rv-metric.refunded .rv-metric-icon { background: #fffbeb; }
+    .rv-metric.orders .rv-metric-icon { background: #f0f9ff; }
+    .rv-metric.paid-orders .rv-metric-icon { background: #f0fdf4; }
+
+    .rv-metric-value {
+        font-size: 20px;
+        font-weight: 700;
+    }
+    .rv-metric.paid .rv-metric-value { color: #0f766e; }
+    .rv-metric.refunded .rv-metric-value { color: #b45309; }
+    .rv-metric.orders .rv-metric-value { color: #0369a1; }
+    .rv-metric.paid-orders .rv-metric-value { color: #15803d; }
+
+    /* Net Revenue Bar */
+    .rv-net {
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        border: 1px solid #bbf7d0;
+        padding: 18px 20px;
+        border-radius: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        position: relative;
+        z-index: 1;
+    }
+    .rv-net-left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+    .rv-net-icon {
+        width: 44px;
+        height: 44px;
+        background: #ffffff;
+        border: 1px solid #bbf7d0;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
+    }
+    .rv-net-label {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #15803d;
+        font-weight: 700;
+        margin-bottom: 2px;
+    }
+    .rv-net-sublabel {
+        font-size: 11px;
+        color: #64748b;
+    }
+    .rv-net-value {
+        font-size: 26px;
+        font-weight: 800;
+        color: #15803d;
+    }
+
+    /* Footer */
+    .rv-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 16px;
+        border-top: 1px solid #e2e8f0;
+        position: relative;
+        z-index: 1;
+    }
+    .rv-updated {
+        font-size: 11px;
+        color: #64748b;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .rv-updated-icon {
+        width: 20px;
+        height: 20px;
+        background: #f1f5f9;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+    }
+    .rv-status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        color: #15803d;
+        font-weight: 600;
+        background: #f0fdf4;
+        padding: 6px 12px;
+        border-radius: 20px;
+        border: 1px solid #bbf7d0;
+    }
+    .rv-status-dot {
+        width: 8px;
+        height: 8px;
+        background: #22c55e;
+        border-radius: 50%;
+        box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+        animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.6; transform: scale(0.85); }
+    }
+</style>
+
+<div class="rv-widget">
+    <!-- Header -->
+    <div class="rv-header">
+        <div class="rv-title-section">
+            <div class="rv-logo">📊</div>
+            <div>
+                <div class="rv-title">Revenue Dashboard</div>
+                <div class="rv-subtitle">Financial Overview</div>
+            </div>
+        </div>
+        <div class="rv-info-btn">?</div>
+
+        <!-- Tooltip -->
+        <div class="rv-tooltip-wrap">
+            <div class="rv-tooltip">
+                <div class="rv-tooltip-title">📈 Revenue Metrics Guide</div>
+
+                <div class="rv-tooltip-item">
+                    <div class="rv-tooltip-indicator teal"></div>
+                    <div class="rv-tooltip-content">
+                        <div class="rv-tooltip-label">Total Revenue</div>
+                        <div class="rv-tooltip-desc">Gross value of all completed orders</div>
+                    </div>
+                    <div class="rv-tooltip-code">orders.total</div>
+                </div>
+
+                <div class="rv-tooltip-item">
+                    <div class="rv-tooltip-indicator blue"></div>
+                    <div class="rv-tooltip-content">
+                        <div class="rv-tooltip-label">Total Paid</div>
+                        <div class="rv-tooltip-desc">Confirmed payments received</div>
+                    </div>
+                    <div class="rv-tooltip-code">orders.totalPaid</div>
+                </div>
+
+                <div class="rv-tooltip-item">
+                    <div class="rv-tooltip-indicator amber"></div>
+                    <div class="rv-tooltip-content">
+                        <div class="rv-tooltip-label">Total Refunded</div>
+                        <div class="rv-tooltip-desc">Payments returned to customers</div>
+                    </div>
+                    <div class="rv-tooltip-code">transactions</div>
+                </div>
+
+                <div class="rv-tooltip-item">
+                    <div class="rv-tooltip-indicator emerald"></div>
+                    <div class="rv-tooltip-content">
+                        <div class="rv-tooltip-label">Net Revenue</div>
+                        <div class="rv-tooltip-desc">Actual retained earnings</div>
+                    </div>
+                    <div class="rv-tooltip-code">paid - refunded</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Revenue -->
+    <div class="rv-main">
+        <div class="rv-main-label">Total Revenue</div>
+        <div class="rv-main-value">
+            <span class="currency">{{ currency }}</span>{{ totalRevenue }}
+        </div>
+        <div class="rv-badge">
+            <span class="rv-badge-icon">⚡</span> High Performance Mode
+        </div>
+    </div>
+
+    <!-- Metrics Grid -->
+    <div class="rv-metrics">
+        <div class="rv-metric paid">
+            <div class="rv-metric-header">
+                <div class="rv-metric-label">Total Paid</div>
+                <div class="rv-metric-icon">💰</div>
+            </div>
+            <div class="rv-metric-value">{{ currency }} {{ totalPaid }}</div>
+        </div>
+
+        <div class="rv-metric refunded">
+            <div class="rv-metric-header">
+                <div class="rv-metric-label">Total Refunded</div>
+                <div class="rv-metric-icon">↩️</div>
+            </div>
+            <div class="rv-metric-value">{{ currency }} {{ totalRefunded }}</div>
+        </div>
+
+        <div class="rv-metric orders">
+            <div class="rv-metric-header">
+                <div class="rv-metric-label">Total Orders</div>
+                <div class="rv-metric-icon">📦</div>
+            </div>
+            <div class="rv-metric-value">{{ orderCount }}</div>
+        </div>
+
+        <div class="rv-metric paid-orders">
+            <div class="rv-metric-header">
+                <div class="rv-metric-label">Paid Orders</div>
+                <div class="rv-metric-icon">✓</div>
+            </div>
+            <div class="rv-metric-value">{{ paidOrderCount }}</div>
+        </div>
+    </div>
+
+    <!-- Net Revenue -->
+    <div class="rv-net">
+        <div class="rv-net-left">
+            <div class="rv-net-icon">💎</div>
+            <div>
+                <div class="rv-net-label">Net Revenue</div>
+                <div class="rv-net-sublabel">Total Paid − Refunded</div>
+            </div>
+        </div>
+        <div class="rv-net-value">{{ currency }} {{ netRevenue }}</div>
+    </div>
+
+    <!-- Footer -->
+    <div class="rv-footer">
+        <div class="rv-updated">
+            <div class="rv-updated-icon">🕐</div>
+            {{ lastUpdated }}
+        </div>
+        <div class="rv-status">
+            <div class="rv-status-dot"></div>
+            Real-time
+        </div>
+    </div>
+</div>

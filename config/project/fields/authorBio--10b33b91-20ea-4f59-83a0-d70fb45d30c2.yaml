@@ -1,0 +1,16 @@
+columnSuffix: null
+handle: authorBio
+instructions: null
+name: 'Author Bio'
+searchable: false
+settings:
+  byteLimit: null
+  charLimit: 500
+  code: false
+  initialRows: 4
+  multiline: true
+  placeholder: null
+  uiMode: enlarged
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

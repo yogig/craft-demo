@@ -1,0 +1,122 @@
+{% extends "_layout" %}
+
+{% block title %}{{ product.title }} - Shop - {{ siteName }}{% endblock %}
+
+{% block content %}
+    {% set variant = product.defaultVariant %}
+
+    <article>
+        <div class="article-header">
+            <h1>{{ product.title }}</h1>
+
+            <div style="display: flex; gap: 20px; align-items: center; margin: 20px 0; flex-wrap: wrap;">
+                <span style="font-size: 32px; font-weight: bold; color: #27ae60;">
+                    {{ variant.price|currency(cart.currency) }}
+                </span>
+
+                {% if variant.hasUnlimitedStock %}
+                    <span style="background: #27ae60; color: white; padding: 8px 16px; border-radius: 4px; font-size: 16px; font-weight: bold;">
+                        ✓ In Stock (Unlimited)
+                    </span>
+                {% elseif variant.stock > 0 %}
+                    <span style="background: #27ae60; color: white; padding: 8px 16px; border-radius: 4px; font-size: 16px; font-weight: bold;">
+                        ✓ In Stock ({{ variant.stock }} available)
+                    </span>
+                {% else %}
+                    <span style="background: #e74c3c; color: white; padding: 8px 16px; border-radius: 4px; font-size: 16px; font-weight: bold;">
+                        ✗ Out of Stock
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div style="margin: 30px 0;">
+            <img src="https://via.placeholder.com/800x400/27ae60/ffffff?text={{ product.title|url_encode }}"
+                 alt="{{ product.title }}"
+                 style="width: 100%; border-radius: 8px;">
+        </div>
+
+        {% if product.productDescription %}
+            <div style="font-size: 18px; line-height: 1.8; color: #555; margin: 30px 0;">
+                {{ product.productDescription|nl2br }}
+            </div>
+        {% endif %}
+
+        <div style="background: #f9f9f9; padding: 30px; border-radius: 8px; margin: 40px 0;">
+            <h3 style="margin-bottom: 20px; font-size: 20px;">Product Details</h3>
+            <div style="display: grid; gap: 10px;">
+                <p><strong>SKU:</strong> {{ variant.sku }}</p>
+                <p><strong>Price:</strong> {{ variant.price|currency(cart.currency) }}</p>
+                <p><strong>Availability:</strong>
+                    {% if variant.hasUnlimitedStock %}
+                        Unlimited Stock
+                    {% elseif variant.stock > 0 %}
+                        {{ variant.stock }} in stock
+                    {% else %}
+                        Out of Stock
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <div style="margin: 40px 0; padding: 30px; background: #ecf0f1; border-radius: 8px;">
+            {% if variant.hasUnlimitedStock or variant.stock > 0 %}
+{#                <form method="post">
+                    {{ csrfInput() }}
+                    {{ actionInput('commerce/cart/update-cart') }}
+                    {{ redirectInput('shop/cart') }}
+                    {{ hiddenInput('successMessage', 'Added to cart!') }}
+
+                    <input type="hidden" name="purchasables[0][id]" value="{{ variant.id }}">
+                    <input type="hidden" name="purchasables[0][qty]" value="1" id="hidden-qty">
+
+                    <div style="display: flex; gap: 20px; align-items: center; justify-content: center; flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <label for="qty" style="font-weight: bold; font-size: 16px;">Quantity:</label>
+                            <input type="number"
+                                   id="qty"
+                                   value="1"
+                                   min="1"
+                                   {% if not variant.hasUnlimitedStock %}max="{{ variant.stock }}"{% endif %}
+                                   onchange="document.getElementById('hidden-qty').value = this.value"
+                                   style="width: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 4px; text-align: center; font-size: 16px;">
+                        </div>
+
+                        <button type="submit" class="btn" style="background: #27ae60; font-size: 18px; padding: 12px 40px;">
+                            🛒 Add to Cart
+                        </button>
+                    </div>
+                </form>#}
+
+
+                <form method="post">
+                    {# 1. Security & Action #}
+                    {{ csrfInput() }}
+                    {{ actionInput('commerce/cart/update-cart') }}
+
+                    {# 2. Redirect & Messages (Must use helpers to hash the values) #}
+                    {{ redirectInput('shop/cart') }}
+                    {{ successMessageInput('Course added to your cart!') }}
+
+                    {# 3. Product Data (Use flat names) #}
+                    <input type="hidden" name="purchasableId" value="{{ product.defaultVariant.id }}">
+
+                    <div class="quantity-wrapper">
+                        <input type="number" name="qty" value="1" min="1">
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </div>
+                </form>
+
+
+            {% else %}
+                <p style="text-align: center; color: #e74c3c; font-size: 18px; font-weight: bold;">
+                    This product is currently out of stock
+                </p>
+            {% endif %}
+        </div>
+
+        <p style="margin-top: 40px;">
+            <a href="{{ url('shop') }}" class="btn" style="background: #95a5a6;">← Back to Shop</a>
+        </p>
+    </article>
+{% endblock %}

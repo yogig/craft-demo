@@ -1,0 +1,16 @@
+columnSuffix: null
+handle: body
+instructions: 'Main content of the blog post'
+name: Body
+searchable: false
+settings:
+  byteLimit: null
+  charLimit: null
+  code: false
+  initialRows: 4
+  multiline: true
+  placeholder: null
+  uiMode: enlarged
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

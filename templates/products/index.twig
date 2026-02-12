@@ -1,0 +1,90 @@
+{% extends "_layout" %}
+
+{% block title %}Products - {{ siteName }}{% endblock %}
+
+{% block content %}
+    <h1 style="margin-bottom: 40px;">Products & Services</h1>
+
+    <p style="font-size: 18px; color: #666; margin-bottom: 40px;">
+        Explore our range of products and services designed to help you succeed.
+    </p>
+
+    {% set productEntries = craft.entries()
+        .section('products')
+        .orderBy('postDate DESC')
+        .all() %}
+
+    {% if productEntries|length %}
+        <div class="blog-grid">
+            {% for entry in productEntries %}
+                <div class="blog-card">
+
+                    {% set productImage = entry.productImage.one() %}
+                    {% if productImage %}
+                        <img src="{{ productImage.url }}"
+                             alt="{{ productImage.title }}">
+                    {% elseif entry.productImages %}
+                        {% set productImage = entry.productImages.one() %}
+                        {% if productImage %}
+                            <img src="{{ productImage.url }}" alt="{{ productImage.title }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/400x200/27ae60/ffffff?text={{ entry.title|url_encode }}"
+                                 alt="{{ entry.title }}">
+                        {% endif %}
+                    {% else %}
+                        <img src="https://via.placeholder.com/400x200/27ae60/ffffff?text={{ entry.title|url_encode }}"
+                             alt="{{ entry.title }}">
+                    {% endif %}
+
+                    <div class="blog-card-content">
+                        <h2><a href="{{ entry.url }}">{{ entry.title }}</a></h2>
+
+                        {% if entry.productDescription %}
+                            <p class="summary">{{ entry.productDescription|slice(0, 120) }}...</p>
+                        {% endif %}
+
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0;">
+                            {% if entry.price %}
+                                <span style="font-size: 24px; font-weight: bold; color: #27ae60;">
+                                    ${{ entry.price|number_format(2) }}
+                                </span>
+                            {% endif %}
+
+                            {% if entry.stockStatus %}
+                                {% set statusColors = {
+                                    'inStock': '#27ae60',
+                                    'outOfStock': '#e74c3c',
+                                    'preOrder': '#f39c12'
+                                } %}
+                                {% set statusLabels = {
+                                    'inStock': 'In Stock',
+                                    'outOfStock': 'Out of Stock',
+                                    'preOrder': 'Pre-Order'
+                                } %}
+                                <span style="background: {{ statusColors[entry.stockStatus.value] }}; color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold;">
+                                    {{ statusLabels[entry.stockStatus.value] }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        {% if entry.productCategories|length %}
+                            <div style="margin: 15px 0;">
+                                {% for category in entry.productCategories.all() %}
+                                    <span style="background: #ecf0f1; padding: 4px 10px; border-radius: 4px; font-size: 12px; margin-right: 5px;">
+                                        {{ category.title }}
+                                    </span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        <a href="{{ entry.url }}" class="btn">View Details →</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p style="color: #666; text-align: center; padding: 40px; background: #f9f9f9; border-radius: 8px;">
+            No products available yet.
+        </p>
+    {% endif %}
+{% endblock %}

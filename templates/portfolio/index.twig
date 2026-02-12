@@ -1,0 +1,57 @@
+{% extends "_layout" %}
+
+{% block title %}Portfolio - {{ siteName }}{% endblock %}
+
+{% block content %}
+    <h1 style="margin-bottom: 40px;">Portfolio</h1>
+
+    <p style="font-size: 18px; color: #666; margin-bottom: 40px;">
+        Check out some of our recent projects and work.
+    </p>
+
+    {% set portfolioEntries = craft.entries()
+        .section('portfolio')
+        .orderBy('postDate DESC')
+        .all() %}
+
+    {% if portfolioEntries|length %}
+        <div class="blog-grid">
+            {% for entry in portfolioEntries %}
+                <div class="blog-card">
+                    {% set projectImage = entry.projectImages.one() %}
+                    {% if projectImage %}
+                        <img src="{{ projectImage.url }}"
+                             alt="{{ projectImage.title }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/400x200/9b59b6/ffffff?text={{ entry.title|url_encode }}"
+                             alt="{{ entry.title }}">
+                    {% endif %}
+
+                    <div class="blog-card-content">
+                        <h2><a href="{{ entry.url }}">{{ entry.title }}</a></h2>
+
+                        {% if entry.projectDescription %}
+                            <p class="summary">{{ entry.projectDescription|slice(0, 150) }}...</p>
+                        {% endif %}
+
+                        {% if entry.technologiesUsed|length %}
+                            <div style="margin: 15px 0; display: flex; gap: 8px; flex-wrap: wrap;">
+                                {% for tech in entry.technologiesUsed.all()|slice(0, 4) %}
+                                    <span style="background: #9b59b6; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px;">
+                                        {{ tech.title }}
+                                    </span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        <a href="{{ entry.url }}" class="btn">View Project →</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p style="color: #666; text-align: center; padding: 40px; background: #f9f9f9; border-radius: 8px;">
+            No portfolio items yet.
+        </p>
+    {% endif %}
+{% endblock %}

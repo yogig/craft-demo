@@ -1,0 +1,146 @@
+dateModified: 1770805963
+elementSources:
+  craft\commerce\elements\Order:
+    -
+      key: '*'
+      type: native
+    -
+      heading: 'Craft Demo Store'
+      key: 'heading:12dc1694-b5a4-442c-8fc5-e6a5daecc7d2'
+      type: heading
+    -
+      defaultSort:
+        - dateOrdered
+        - desc
+      defaultViewMode: ''
+      disabled: false
+      key: 'orderStatus:new'
+      tableAttributes:
+        - reference
+        - customer
+        - dateOrdered
+        - datePaid
+        - dateFirstPaid
+        - totalPaid
+        - paidStatus
+      type: native
+    -
+      key: 'carts:active:CraftDemoStore'
+      type: native
+    -
+      key: 'carts:inactive:CraftDemoStore'
+      type: native
+    -
+      defaultSort:
+        - id
+        - asc
+      defaultViewMode: table
+      disabled: false
+      key: 'carts:attempted-payment:CraftDemoStore'
+      tableAttributes:
+        - shortNumber
+        - dateUpdated
+        - totalPrice
+        - paidStatus
+        - datePaid
+        - totalPaid
+        - totalQty
+      type: native
+email:
+  fromEmail: yogendra.ghorecha@evernow.io
+  fromName: 'Craft Demo'
+  transportType: craft\mail\transportadapters\Sendmail
+fs:
+  local:
+    hasUrls: true
+    name: Local
+    settings:
+      path: '@webroot/uploads/images'
+    type: craft\fs\Local
+    url: $PRIMARY_SITE_URL/uploads/images
+meta:
+  __names__:
+    3b9cb6f1-3672-4611-bbcb-83aa7cae0178: New # New
+    3b38815c-3038-45e5-9a11-031573915bed: 'Technologies Used' # Technologies Used
+    4b7ff6de-1a1b-4e55-a808-1bf9de9445f8: Product # Product
+    6c3b32b8-173d-4538-ba0d-3c2fc0aa055f: Price # Price
+    6d6caae3-ad43-4f95-a380-46fd159932b4: 'Product Features' # Product Features
+    6db90932-349e-4329-8a34-6de310f034f3: Body # Body
+    6e847753-a015-49bc-b441-c19399508f68: Products # Products
+    7e09bd6f-34f5-4111-bc36-08220dd89d7f: Blog # Blog
+    8c85a55a-24cb-4daf-acbd-fcd8c0c79257: 'Test Payment Gateway' # Test Payment Gateway
+    8e7fd94b-d701-43aa-8928-4c0ff898083d: Simple # Simple
+    10a054b0-1199-4924-94b7-ab6d6a720ec2: ' Product Categories' #  Product Categories
+    10b33b91-20ea-4f59-83a0-d70fb45d30c2: 'Author Bio' # Author Bio
+    44a9a077-d4ca-4012-8537-22b99348fddf: 'Craft Demo' # Craft Demo
+    51e28d9a-a601-4c86-bd63-c2be7880c88c: Blog # Blog
+    61de7806-458a-40c0-8c90-b6548a08a188: 'Reading Time' # Reading Time
+    62e7804c-1235-42c8-89fd-8e626644bb04: 'Project Images' # Project Images
+    65f4b488-ba8f-47b8-a0d7-0b5ff1b0062c: Portfolio # Portfolio
+    83b1c30e-4310-4c1b-99a4-e7f505c1da6f: Portfolio # Portfolio
+    185a95b0-c94e-4eb6-b232-f16076208efc: Categories # Categories
+    904c72b8-6312-40bc-8d73-1c4617021b3e: 'Stock Status' # Stock Status
+    358899c5-3ac8-4059-adfe-fc70eb3586f4: 'Project Description' # Project Description
+    7756478d-aefb-4cab-b2e2-967103693aa5: 'Digital Products' # Digital Products
+    b0b9608d-5da8-497e-b0c7-1951f88ca2b8: Tags # Tags
+    b9c529ef-e09d-4a0d-8811-57da2fa8cb16: 'Public Schema' # Public Schema
+    c1d2505b-0c14-46f0-a6f6-a11e72bd6f22: 'Featured Image' # Featured Image
+    c804383e-641d-47af-b2c9-30a701119dd5: 'Blog Tags' # Blog Tags
+    cf1790bd-1914-4fb5-88c5-d48c09304ab2: 'Product Categories' # Product Categories
+    d07c23eb-5b59-4cb3-a645-194232452efa: 'Product Description' # Product Description
+    d4ed4d51-bf17-4738-8c75-fc2e8bec5713: 'Featured Post' # Featured Post
+    de2e7241-397a-45e4-b8ec-9e26f3c5213d: 'Craft Demo Store' # Craft Demo Store
+    e04184e0-840c-4502-ae7d-dc796c214697: 'Blog Categories' # Blog Categories
+    e0781df1-416c-47c6-bd9b-98bad82f27e9: 'Craft Demo' # Craft Demo
+    e2deca1a-3736-470c-9de3-1c555205f4a8: 'Project URL' # Project URL
+    e9c96497-7d55-4ceb-afa6-a6c5f6282943: Technologies # Technologies
+    e539b139-a744-49a8-9935-4e1d00d8edf0: 'Blog Entry' # Blog Entry
+    e775b2f0-4d76-4656-9705-23e068166f27: 'Product Image' # Product Image
+    f1f371e0-3df9-41b4-bbe6-47ed3285b81a: Summary # Summary
+    f9b0039c-1558-4ccf-884d-920e6888c4bb: Images # Images
+    fbb80d98-3f5d-4669-87f8-1cd1e9f6ee63: 'Accent Color' # Accent Color
+plugins:
+  ckeditor:
+    edition: standard
+    enabled: true
+    schemaVersion: 3.0.0.0
+  colour-swatches:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.4.3
+  commerce:
+    edition: pro
+    enabled: true
+    licenseKey: JEPCB9YEX0AK657WI9J5O2JU
+    schemaVersion: 5.5.0.5
+    settings:
+      defaultView: commerce/orders
+      dimensionUnits: cm
+      updateBillingDetailsUrl: ''
+      weightUnits: kg
+  dark-mode:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  entry-count:
+    edition: standard
+    enabled: true
+    schemaVersion: 2.0.0
+  super-table:
+    edition: standard
+    enabled: true
+    schemaVersion: 4.0.0
+system:
+  edition: solo
+  live: true
+  name: 'Craft Demo'
+  retryDuration: null
+  schemaVersion: 5.9.0.8
+  timeZone: Europe/Berlin
+users:
+  allowPublicRegistration: false
+  defaultGroup: null
+  photoSubpath: null
+  photoVolumeUid: null
+  require2fa: false
+  requireEmailVerification: true
