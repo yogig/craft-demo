@@ -1,4 +1,4 @@
-# Craft CMS Demo – Blog, Portfolio & E-Commerce
+# Craft CMS Demo – Blog, Portfolio & E-Commerce by Yogi Ghorecha
 
 A full-featured demo project built with **Craft CMS 5** and **Craft Commerce 5**, showcasing blog, portfolio, and e-commerce functionality with a complete shopping experience.
 
